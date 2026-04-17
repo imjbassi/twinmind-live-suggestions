@@ -8,7 +8,7 @@ Built for the TwinMind take-home. Runs entirely client-side for state (no DB, no
 
 ## Live demo
 
-> Add your Vercel URL here after deploying.
+> https://twinmind-live-suggestions-smoky.vercel.app/
 
 1. Open the URL
 2. Go to **Settings** → paste your Groq API key (get one at [console.groq.com](https://console.groq.com))
