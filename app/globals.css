@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+/* Markdown prose inside chat bubbles */
+.prose-invert h1,
+.prose-invert h2,
+.prose-invert h3 {
+  color: #e5e7eb;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+.prose-invert p {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.6;
+}
+.prose-invert ul,
+.prose-invert ol {
+  padding-left: 1.25rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+.prose-invert li {
+  margin-top: 0.1rem;
+  margin-bottom: 0.1rem;
+}
+.prose-invert code {
+  background: #1f2937;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.8em;
+  color: #93c5fd;
+}
+.prose-invert pre {
+  background: #1f2937;
+  padding: 0.75rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+.prose-invert pre code {
+  background: transparent;
+  padding: 0;
+  color: #d1d5db;
+}
+.prose-invert strong {
+  color: #f9fafb;
+  font-weight: 600;
+}
+.prose-invert blockquote {
+  border-left: 3px solid #4b5563;
+  padding-left: 0.75rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+.prose-invert a {
+  color: #60a5fa;
+  text-decoration: underline;
+}
