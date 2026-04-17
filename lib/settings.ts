@@ -1,10 +1,21 @@
-import { DEFAULT_SUGGESTION_PROMPT, DEFAULT_CHAT_PROMPT } from './prompts'
+import {
+  DEFAULT_SUGGESTION_PROMPT,
+  DEFAULT_CHAT_PROMPT,
+  DEFAULT_DETAILED_ANSWER_PROMPT,
+} from './prompts'
 
 export interface AppSettings {
   groqApiKey: string
   suggestionPrompt: string
+  // Prompt used when the user clicks a suggestion card — expands the card's
+  // preview/fullContext into a detailed, structured answer.
+  detailedAnswerPrompt: string
+  // Prompt used when the user types a free-form question in the chat.
   chatPrompt: string
   suggestionContextSize: number
+  // Transcript window sent with a suggestion-click expansion.
+  detailedAnswerContextSize: number
+  // Transcript window sent with a free-form chat question.
   chatContextSize: number
   chatModel: string
   transcriptionModel: string
@@ -13,8 +24,10 @@ export interface AppSettings {
 export const DEFAULT_SETTINGS: AppSettings = {
   groqApiKey: '',
   suggestionPrompt: DEFAULT_SUGGESTION_PROMPT,
+  detailedAnswerPrompt: DEFAULT_DETAILED_ANSWER_PROMPT,
   chatPrompt: DEFAULT_CHAT_PROMPT,
   suggestionContextSize: 4000,
+  detailedAnswerContextSize: 6000,
   chatContextSize: 8000,
   chatModel: 'openai/gpt-oss-120b',
   transcriptionModel: 'whisper-large-v3',

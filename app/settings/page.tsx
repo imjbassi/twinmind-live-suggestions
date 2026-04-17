@@ -37,14 +37,21 @@ const FIELDS: FieldConfig[] = [
   {
     key: 'suggestionContextSize',
     label: 'Suggestion Context Window (chars)',
-    description: 'How many characters of recent transcript to send when generating suggestions.',
+    description: 'How many characters of recent transcript to send when generating the 3 live suggestion cards.',
     type: 'number',
     placeholder: '4000',
   },
   {
+    key: 'detailedAnswerContextSize',
+    label: 'Detailed Answer Context Window (chars)',
+    description: 'Transcript window sent when the user clicks a suggestion card to get a detailed expanded answer.',
+    type: 'number',
+    placeholder: '6000',
+  },
+  {
     key: 'chatContextSize',
     label: 'Chat Context Window (chars)',
-    description: 'How many characters of transcript to include in chat system prompt.',
+    description: 'Transcript window sent when the user types a free-form question into the chat.',
     type: 'number',
     placeholder: '8000',
   },
@@ -55,9 +62,15 @@ const FIELDS: FieldConfig[] = [
     type: 'textarea',
   },
   {
+    key: 'detailedAnswerPrompt',
+    label: 'Detailed Answer (On-Click) System Prompt',
+    description: 'Instructs the model when the user clicks a suggestion — should produce a longer, structured answer grounded in the transcript. Use {{TRANSCRIPT}} as a placeholder.',
+    type: 'textarea',
+  },
+  {
     key: 'chatPrompt',
-    label: 'Chat System Prompt',
-    description: 'Instructs the model for chat answers. Use {{TRANSCRIPT}} as a placeholder for the full transcript.',
+    label: 'Chat System Prompt (Typed Questions)',
+    description: 'Instructs the model for free-form typed chat questions. Use {{TRANSCRIPT}} as a placeholder for the transcript.',
     type: 'textarea',
   },
 ]
@@ -92,8 +105,18 @@ export default function SettingsPage() {
       )
       return
     }
+    if (!settings.detailedAnswerPrompt.includes('{{TRANSCRIPT}}')) {
+      setValidationError(
+        'Detailed Answer System Prompt must contain the {{TRANSCRIPT}} placeholder so the meeting transcript can be injected.',
+      )
+      return
+    }
     if (settings.suggestionContextSize < MIN_CONTEXT_CHARS) {
       setValidationError(`Suggestion context window must be at least ${MIN_CONTEXT_CHARS} characters.`)
+      return
+    }
+    if (settings.detailedAnswerContextSize < MIN_CONTEXT_CHARS) {
+      setValidationError(`Detailed answer context window must be at least ${MIN_CONTEXT_CHARS} characters.`)
       return
     }
     if (settings.chatContextSize < MIN_CONTEXT_CHARS) {

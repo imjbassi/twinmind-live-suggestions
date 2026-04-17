@@ -73,6 +73,15 @@ export default function ChatPanel({
       const controller = new AbortController()
       abortRef.current = controller
 
+      // A `displayText` argument means this came from a suggestion-card click,
+      // which has its own longer-form prompt + context window. Typed questions
+      // use the free-form chat prompt/context.
+      const isSuggestionClick = displayText !== undefined
+      const prompt = isSuggestionClick ? settings.detailedAnswerPrompt : settings.chatPrompt
+      const contextSize = isSuggestionClick
+        ? settings.detailedAnswerContextSize
+        : settings.chatContextSize
+
       try {
         const res = await fetch('/api/chat', {
           method: 'POST',
@@ -86,9 +95,9 @@ export default function ChatPanel({
               content: m.content,
             })),
             transcript: transcriptRef.current,
-            prompt: settings.chatPrompt,
+            prompt,
             model: settings.chatModel,
-            contextSize: settings.chatContextSize,
+            contextSize,
           }),
           signal: controller.signal,
         })
